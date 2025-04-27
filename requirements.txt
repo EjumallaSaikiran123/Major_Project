@@ -1,0 +1,12 @@
+flask
+opencv-python
+tensorflow
+torch
+deepface
+transformers
+python-dotenv
+twilio
+scikit-learn
+pandas
+numpy
+matplotlib
