@@ -2,6 +2,14 @@ AI-Powered Personalized Therapy with Real-Time Emotion Detection
 
 This project provides intelligent and personalized mental health support using real-time emotion detection powered by AI. It captures users' emotions through video/audio input, processes them using deep learning models, and delivers tailored therapeutic responses instantly.
 
+
+Abstract:
+
+In the current academic scenario, the student mental health has emerged as a pressure anxiety, with increasing examples of stress, anxiety, and emotional crisis, the consequences of learning and adverse effects on individual development. Traditional counselling approaches often fail to catch early indicators of psychological imbalance, especially in introverted individuals who cannot openly communicate their emotional conflicts. This research proposes a multimodal emotion -ware system to quickly detect mental health issues in students using affectionate computing techniques. The proposed system integrates facial emotion recognition, voice emotion analysis and psychological survey evaluation to assess the overall, non-guspath of a student's emotional status. The methodology involves detecting real-time facial expression, using a tone and pitch analysing the LSTM-RNN model using the Convolution Neural Network (CNNs), voice emotion classification, and the mental health suggestions and mental health tips and mental health suggestions and mental health suggestions and remedies are provided by Mistral AI (LLM). This multimodal data fusion enhances the ability of the system to detect emotional instability and behavioural patterns that may indicate and treat stress, depression, or potentially suicidal ideas. In this study, emotion detection was performed using two primary modalities—Facial Emotion Detection and Voice Emotion Detection—each evaluated individually and in combination to assess the effectiveness of multi-modal fusion. The Facial Emotion Detection model achieved an accuracy of 63% using CNN, indicating moderate performance due to challenges like occlusion, lighting variations, and subtle facial cues. In contrast, the Voice Emotion Detection model demonstrated a significantly higher accuracy of 93% using LSTM, owing to the richness of emotional expression in speech features such as pitch, tone, and tempo. To enhance the overall robustness of the system and provide deeper insights into emotional states, a collaborative multi-modal approach was employed. While a weighted SoftMax fusion technique was explored—assigning 70% weight to the voice model and 30% to the facial model for combined emotion prediction—the core objective was not merely to merge outputs into a single prediction. Instead, both the voice and facial emotion recognition models operate in parallel, providing complementary perspectives on the user's emotional state. This dual-channel analysis enables the system to capture nuanced variations in emotional expression that may be missed by unimodal approaches. With this cooperative strategy, the system achieved an enhanced understanding of user emotions, leading to improved mental health support. The approach demonstrates that integrating multiple modalities, even without strict fusion, can significantly aid in the identification and analysis of complex emotional patterns, reinforcing the value of multi-modal systems in real-world therapeutic applications.. The conclusion underlines the system's ability to promote an emotionally intelligent educational environment that proactively support student well-being. Future enhancements include expanding the dataset diversity, incorporating physiological signals like heart rate and EEG, and integrating the system with institutional learning management platforms to offer personalized mental health dashboards for students and counsellors. This research marks a significant step toward building empathetic, AI-driven solutions for mental health awareness and intervention in academic settings.
+Keywords
+Human Computer Interaction, Convolution Neural Network, Recurrent Neural Network, Long Short-Term Memory, Survey Form (Difficulty Scoring System of Mental Status)
+
+
 Team Members:
 
     Ejumalla Saikiran
@@ -70,9 +78,6 @@ Development Strategy:
 
 How to Run:
 
-    Clone the Repository
-    git clone https://github.com/yourusername/emotion-therapy-app.git
-    cd emotion-therapy-app
 
     Set Up Virtual Environment (Optional)
     python -m venv venv
