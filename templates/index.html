@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Student Counseling Virtual Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="head">
+        <img src="{{ url_for('static', filename='AI.png') }}" alt="Logo" class="logo">       
+        <h2>AI POWERED PERSONALIZED THERAPY USING REAL-TIME EMOTION DETECTION</h2>
+    </div>
+
+  
+    <!-- Content Section -->
+    <div class="container">
+        <header>
+            <font color="white"><h1>🤖 Student Counselling Virtual Machine</h1></font>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+            </nav>
+        </header>
+        <marquee style="color: #f5f5f5fb; font-size: 22px; font-weight: bold; font-family: 'Georgia', serif; background: #06cbf7;">
+            💥  "It's okay to struggle. It's okay to ask for help. Your feelings are valid, and you are not alone."💥 
+        </marquee>
+        
+        <section class="about">
+            <div class="content">
+                <h2><font face="mistral" color="indigo">About AI Counsellor</font></h2>
+                <p>Our AI-powered therapy platform helps users analyze their emotions and seek mental health guidance through real-time sentiment analysis and emotion detection.</p>
+                <p>      AI-powered personalized therapy with real-time emotion detection is an advanced mental health support system that uses artificial intelligence to analyze emotions and deliver customized therapeutic responses in real time, enhancing emotional well-being.                </p>
+            </div>
+        </section>
+    
+        <section class="features">
+            <div class="feature-box">
+                <h3><i class="fas fa-user-plus"></i> Register Page</h3>
+                <ul>
+                    <li>Users register with a username and password.</li>
+                    <li>Credentials are securely stored in an SQLite3 database.</li>
+                    <li>After registration, users are redirected to the login page.</li>
+                </ul>
+            </div>
+    
+            <div class="feature-box">
+                <h3><i class="fas fa-sign-in-alt"></i> Login Page</h3>
+                <ul>
+                    <li>Users log in using their registered credentials.</li>
+                    <li>Upon successful login, they are redirected to the Dashboard.</li>
+                </ul>
+            </div>
+    
+            <div class="feature-box">
+                <h3><i class="fas fa-columns"></i> Dashboard Page</h3>
+                <p>The Dashboard consists of three sections:</p>
+                <ul>
+                    <li>📝 <strong>Text Input Field:</strong> Users answer therapy-related MCQs.</li>
+                    <li>📷 <strong>Web Cam Field:</strong> Captures emotions while answering MCQs.</li>
+                    <li>🎤 <strong>Voice Emotion Detection:</strong> Users read their responses aloud.</li>
+                </ul>
+            </div>
+        </section>
+    
+        <section class="guidelines">
+            <h2><font color="indigo">🔹 Key Guidelines</font></h2>
+            <ul>
+                <li>✅ Honest answers lead to accurate analysis.</li>
+                <li>✅ Ensure no distractions for precise emotion tracking.</li>
+                <li>✅ AI-powered reports provide personalized guidance.</li>
+            </ul>
+        </section>
+    
+        <footer>
+           <font color="white"> <p>© 2025 AI Counsellor | Your Mental Health, Our Priority 💙</p></font>
+        </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health & Emotion Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; }
+        h2 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f4f4f4; }
+
+        .result-box {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .emotion {
+            font-size: 40px;
+            color: #00796b;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Personal Information</h2>
+    <p><strong>Name:</strong> {{ name }}</p>
+    <p><strong>Age:</strong> {{ age }}</p>
+    <p>Roll Number: {{ roll }}</p>
+    <p>Year: {{ year }}</p>
+    <p>Branch: {{ branch }}</p>
+    <p>Section: {{ section }}</p>
+    <p>Phone Number: {{ pn }}</p>
+
+    <h2>Mental Health Analysis</h2>
+    <table>
+        <tr><th>Score</th><td>{{ total_score }}</td></tr>
+        <tr><th>Difficulty Level</th><td>{{ difficulty }}</td></tr>
+        <tr><th>Suicidal Thoughts</th><td>{{ suicide_status }}</td></tr>
+    </table>
+
+    <h2>Emotion Detection Analysis</h2>
+    <table>
+        <tr><th>Emotion</th><th>Frequency</th></tr>
+        {% for emotion, count in emotion_count.items() %}
+            <tr><td>{{ emotion }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+    </table>
+    <p><strong>Highest Detected Emotion:</strong> {{ highest_emotion }}</p>
+
+    <h1>Your Speech Emotion Report 📊</h1>
+
+        <p><strong>Your Written Thoughts:</strong></p>
+        <p id="user-text">{{ user_text }}</p>
+
+        <div class="result-box">
+            <h2>Predicted Emotion:</h2>
+            <div class="emotion">{{ emotion }}</div>
+        </div>
+
+    <form action="/Ai_Counsellor" method="POST">
+        <button type="submit">Submit Report to AI Counsellor</button>
+    </form>
+    
+ 
+</body>
+</body>
+</html>

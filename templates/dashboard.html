@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Student Counseling Session Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .dashboard-title {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .module {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+        }
+        
+        .module-title {
+            color: #007BFF;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        fieldset {
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        legend {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .options label {
+            display: block;
+            margin-left: 10px;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin-top: 30px;
+            width: 100%;
+        }
+        
+        .submit-btn {
+            padding: 12px 30px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .button-group {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .button-group button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        #start-recording {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        #stop-recording {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        #video-feed {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        .scrollable {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        /* Scrollbar styling */
+        .scrollable::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .scrollable::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .scrollable::-webkit-scrollbar-thumb {
+            background: #007BFF;
+            border-radius: 4px;
+        }
+        
+        .scrollable::-webkit-scrollbar-thumb:hover {
+            background: #0056b3;
+        }
+
+        .dashboard-container1 {
+      width: 30%;
+      background: white;
+      padding: 30px;
+      margin-right: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .mic-button {
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      padding: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 30px;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+      animation: pulse 2s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0,123,255, 0.5); }
+      70% { box-shadow: 0 0 0 20px rgba(0,123,255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,123,255, 0); }
+    }
+
+    .status {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .submit-button {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .submit-button:hover {
+      background-color: #218838;
+    }
+
+    audio {
+      margin-top: 15px;
+      width: 100%;
+    }
+    </style>
+</head>
+<body>
+    <h1 class="dashboard-title">AI Student Counseling Session Dashboard</h1>
+    
+    <form action="/process" method="POST" enctype="multipart/form-data">
+        <div class="dashboard-container">
+            <!-- Module 1: Survey Questions -->
+            <div class="module">
+                <h2 class="module-title">Mental Health Assessment</h2>
+                <div class="scrollable">
+                    <fieldset>
+                        <legend>Personal Details</legend>
+                        <label>Enter Your Details:</label>
+                        <div class="options">
+                            <label>Name :</label><input type="text" name="name" required>
+                            <label>Age :</label><input type="number" name="age" required>
+                            <label>Roll_Number :</label><input type="text" name="roll" required>
+                            <label>Year :</label><input type="text" name="year" required>
+                            <label>Branch :</label><input type="text" name="branch" required>
+                            <label>section :</label><input type="text" name="section" required>
+                            <label>Phone Number :</label><input typr="text" name="phone_number" required>
+                            
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <legend>Current Mental State</legend>
+                        <label>How would you describe your current mental state?</label>
+                        <div class="options">
+                            <label><input type="radio" name="mental_state" value="1" required> Very calm and relaxed</label>
+                            <label><input type="radio" name="mental_state" value="2"> Mostly calm with occasional stress</label>
+                            <label><input type="radio" name="mental_state" value="3"> Neutral</label>
+                            <label><input type="radio" name="mental_state" value="4"> Often anxious or stressed</label>
+                            <label><input type="radio" name="mental_state" value="5"> Extremely anxious or overwhelmed</label>
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <legend>Emotional Well-being</legend>
+                        <label>Do you find it easy to talk about your feelings?</label>
+                        <div class="options">
+                            <label><input type="radio" name="talk_feelings" value="1" required> Very easy</label>
+                            <label><input type="radio" name="talk_feelings" value="2"> Somewhat easy</label>
+                            <label><input type="radio" name="talk_feelings" value="3"> Neutral</label>
+                            <label><input type="radio" name="talk_feelings" value="4"> Somewhat difficult</label>
+                            <label><input type="radio" name="talk_feelings" value="5"> Very difficult</label>
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <legend>Stress & Coping</legend>
+                        <label>How often do you feel emotionally overwhelmed?</label>
+                        <div class="options">
+                            <label><input type="radio" name="overwhelmed" value="1" required> Never</label>
+                            <label><input type="radio" name="overwhelmed" value="2"> Rarely</label>
+                            <label><input type="radio" name="overwhelmed" value="3"> Sometimes</label>
+                            <label><input type="radio" name="overwhelmed" value="4"> Often</label>
+                            <label><input type="radio" name="overwhelmed" value="5"> Always</label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Habit Changes</legend>
+                        <label>Have you noticed any changes in your eating or sleeping habits?</label>
+                        <div class="options">
+                            <label><input type="radio" name="Habitchange" value="1" required> No changes at all</label>
+                            <label><input type="radio" name="Habitchange" value="2"> Minor changes</label>
+                            <label><input type="radio" name="Habitchange" value="3"> Noticeble Changes</label>
+                            <label><input type="radio" name="Habitchange" value="4"> Significant Changes</label>
+                            <label><input type="radio" name="Habitchange" value="5"> Extreme changes affecting daily life</label>
+                        </div>
+                    </fieldset>
+                
+            
+            <fieldset>
+                <legend>Happiness_score</legend>
+                <label>On a scale of 1–5, how happy do you feel most of the time?</label>
+                <div class="options">
+                    <label><input type="radio" name="Happiness" value="5"> 1</label>
+                    <label><input type="radio" name="Happiness" value="4"> 2</label>
+                    <label><input type="radio" name="Happiness" value="3"> 3</label>
+                    <label><input type="radio" name="Happiness" value="2"> 4</label>
+                    <label><input type="radio" name="Happiness" value="1"> 5</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Studies</legend>
+                <label>How often do you worry about your studies?</label>
+                <div class="options">
+                    <label><input type="radio" name="study" value="1"> Never</label>
+                    <label><input type="radio" name="study" value="2"> Rarely</label>
+                    <label><input type="radio" name="study" value="3"> Sometimes</label>
+                    <label><input type="radio" name="study" value="4"> Often</label>
+                    <label><input type="radio" name="study" value="5"> Always</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Academic Pressure</legend>
+                <label>Do you feel pressured to achieve certain academic goals?</label>
+                <div class="options">
+                    <label><input type="radio" name="academic_pressure" value="1"> Not at all</label>
+                    <label><input type="radio" name="academic_pressure" value="2"> Slightly pressured</label>
+                    <label><input type="radio" name="academic_pressure" value="3"> Moderately pressured</label>
+                    <label><input type="radio" name="academic_pressure" value="4"> Highly pressured</label>
+                    <label><input type="radio" name="academic_pressure" value="5"> Extremely pressured</label>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Motivation</legend>
+                <label>Do you experience difficulty concentrating or staying motivated?</label>
+                <div class="options">
+                    <label><input type="radio" name="motivation" value="1"> Never</label>
+                    <label><input type="radio" name="motivation" value="2"> Rarely</label>
+                    <label><input type="radio" name="motivation" value="3"> Sometimes</label>
+                    <label><input type="radio" name="motivation" value="4"> Often</label>
+                    <label><input type="radio" name="motivation" value="5"> Always</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Anxious</legend>
+                <label>How often do you feel anxious about exams or deadlines?</label>
+                <div class="options">
+                    <label><input type="radio" name="anxious" value="1"> Never</label>
+                    <label><input type="radio" name="anxious" value="2"> Rarely</label>
+                    <label><input type="radio" name="anxious" value="3"> Sometimes</label>
+                    <label><input type="radio" name="anxious" value="4"> Often</label>
+                    <label><input type="radio" name="anxious" value="5"> Always</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Course Stress</legend>
+                <label>Have you ever considered giving up on a course because of stress?</label>
+                <div class="options">
+                    <label><input type="radio" name="course" value="1"> Never</label>
+                    <label><input type="radio" name="course" value="2"> Rarely</label>
+                    <label><input type="radio" name="course" value="3"> Sometimes</label>
+                    <label><input type="radio" name="course" value="4"> Often</label>
+                    <label><input type="radio" name="course" value="5"> Always</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>stress_symptoms</legend>
+                <label>How often do you feel sad, anxious, or hopeless?</label>
+                <div class="options">
+                    <label><input type="radio" name="sad" value="1"> Never</label>
+                    <label><input type="radio" name="sad" value="2"> Rarely</label>
+                    <label><input type="radio" name="sad" value="3"> Sometimes</label>
+                    <label><input type="radio" name="sad" value="4"> Often</label>
+                    <label><input type="radio" name="sad" value="5"> Always</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Coping_Mechanism</legend>
+                <label>How often do you engage in activities that make you happy?</label>
+                <div class="options">
+                    <label><input type="radio" name="happyacivity" value="1"> Never</label>
+                    <label><input type="radio" name="happyacivity" value="2"> Rarely</label>
+                    <label><input type="radio" name="happyacivity" value="3"> Sometimes</label>
+                    <label><input type="radio" name="happyacivity" value="4"> Often</label>
+                    <label><input type="radio" name="happyacivity" value="5"> Always</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Loneliness</legend>
+                <label>Do you ever feel lonely, even when surrounded by people?</label>
+                <div class="options">
+                    <label><input type="radio" name="lonely" value="1"> Never</label>
+                    <label><input type="radio" name="lonely" value="2"> Rarely</label>
+                    <label><input type="radio" name="lonely" value="3"> Sometimes</label>
+                    <label><input type="radio" name="lonely" value="4"> Often</label>
+                    <label><input type="radio" name="lonely" value="5"> Always</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Handling conflicts</legend>
+                <label>How easy is it for you to handle conflicts or challenges in your personal life?</label>
+                <div class="options">
+                    <label><input type="radio" name="conflicts" value="1"> Never</label>
+                    <label><input type="radio" name="conflicts" value="2"> Rarely</label>
+                    <label><input type="radio" name="conflicts" value="3"> Sometimes</label>
+                    <label><input type="radio" name="conflicts" value="4"> Often</label>
+                    <label><input type="radio" name="conflicts" value="5"> Always</label>
+                </div>
+            </fieldset>
+
+          
+
+            <fieldset>
+                <legend>Social Situations</legend>
+                <label>How comfortable are you in social situations?</label>
+                <div class="options">
+                    <label><input type="radio" name="social" value="1"> very comfortable</label>
+                    <label><input type="radio" name="social" value="2"> somewhat comfortable</label>
+                    <label><input type="radio" name="social" value="3"> Neutral</label>
+                    <label><input type="radio" name="social" value="4"> somewhat uncomfortable</label>
+                    <label><input type="radio" name="social" value="5"> very uncomfortable</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Relationships</legend>
+                <label>How easy is it for you to maintain relationships with peers and family members?</label>
+                <div class="options">
+                    <label><input type="radio" name="relationships" value="1"> very easy</label>
+                    <label><input type="radio" name="relationships" value="2"> somewhat easy</label>
+                    <label><input type="radio" name="relationships" value="3"> Neutral</label>
+                    <label><input type="radio" name="relationships" value="4"> somewhat difficult</label>
+                    <label><input type="radio" name="relationships" value="5"> very difficult</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Energy Levels Rating</legend>
+                <label>How would you rate your energy levels on most days?</label>
+                <div class="options">
+                    <label><input type="radio" name="energylevels" value="1"> Excellent</label>
+                    <label><input type="radio" name="energylevels" value="2">Good</label>
+                    <label><input type="radio" name="energylevels" value="3"> Average</label>
+                    <label><input type="radio" name="energylevels" value="4"> Low</label>
+                    <label><input type="radio" name="energylevels" value="5"> very low</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Sleep_quality</legend>
+                <label>How many hours of sleep do you get each night?</label>
+                <div class="options">
+                    <label><input type="radio" name="sleep" value="1"> Less than 4 hours</label>
+                    <label><input type="radio" name="sleep" value="2">4–5 hours</label>
+                    <label><input type="radio" name="sleep" value="3"> 6–7 hours</label>
+                    <label><input type="radio" name="sleep" value="4"> 8 hours</label>
+                    <label><input type="radio" name="sleep" value="5"> More than 8 hours</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Coping mechanisms</legend>
+                <label>How often do you use healthy coping mechanisms when stressed?</label>
+                <div class="options">
+                    <label><input type="radio" name="mechanisms" value="1"> Always</label>
+                    <label><input type="radio" name="mechanisms" value="2"> Most of the time</label>
+                    <label><input type="radio" name="mechanisms" value="3"> Sometimes</label>
+                    <label><input type="radio" name="mechanisms" value="4"> Rarely</label>
+                    <label><input type="radio" name="mechanisms" value="5"> Never</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Trust_support</legend>
+                <label>Do you have someone you trust to talk to when you’re struggling?</label>
+                <div class="options">
+                    <label><input type="radio" name="trust" value="1"> Yes, always</label>
+                    <label><input type="radio" name="trust" value="2">Most of the time</label>
+                    <label><input type="radio" name="trust" value="3"> Sometimes</label>
+                    <label><input type="radio" name="trust" value="4"> Rarely</label>
+                    <label><input type="radio" name="trust" value="5"> No</label>
+                </div>
+            </fieldset>
+
+            
+
+            
+
+            <fieldset>
+                <legend>Therapy</legend>
+                <label>Have you ever sought professional help for your mental health?</label>
+                <div class="options">
+                    <label><input type="radio" name="professional" value="1"> Yes, currently in therapy</label>
+                    <label><input type="radio" name="professional" value="2"> Yes, in the past</label>
+                    <label><input type="radio" name="professional" value="3"> No, but I’ve considered it</label>
+                    <label><input type="radio" name="professional" value="4"> No, never</label>
+                    <label><input type="radio" name="professional" value="5"> No need </label>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <legend>Future Outlook</legend>
+                <label>How do you feel about your future prospects?</label>
+                <div class="options">
+                    <label><input type="radio" name="future_prospects" value="1"> Very positive</label>
+                    <label><input type="radio" name="future_prospects" value="2"> Somewhat positive</label>
+                    <label><input type="radio" name="future_prospects" value="3"> Neutral</label>
+                    <label><input type="radio" name="future_prospects" value="4"> Somewhat negative</label>
+                    <label><input type="radio" name="future_prospects" value="5"> Very negative</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Confidence</legend>
+                <label>How confident are you in your ability to handle life’s challenges?</label>
+                <div class="options">
+                    <label><input type="radio" name="challenges" value="1"> Very confident</label>
+                    <label><input type="radio" name="challenges" value="2"> Somewhat confident</label>
+                    <label><input type="radio" name="challenges" value="3"> Neutral</label>
+                    <label><input type="radio" name="challenges" value="4"> Somewhat doubtful</label>
+                    <label><input type="radio" name="challenges" value="5"> Very doubtful</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Self view</legend>
+                <label>How do you typically view yourself?</label>
+                <div class="options">
+                    <label><input type="radio" name="view" value="1"> Very Positively</label>
+                    <label><input type="radio" name="view" value="2"> Somewhat Positively</label>
+                    <label><input type="radio" name="view" value="3"> Neutral</label>
+                    <label><input type="radio" name="view" value="4"> Somewhat negatively</label>
+                    <label><input type="radio" name="view" value="5"> Very negatively</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Satisfaction Rate</legend>
+                <label>What is your current level of life satisfaction?</label>
+                <div class="options">
+                    <label><input type="radio" name="satisfaction" value="1">Completely satisfied</label>
+                    <label><input type="radio" name="satisfaction" value="2"> Mostly satisfied</label>
+                    <label><input type="radio" name="satisfaction" value="3"> Neutral</label>
+                    <label><input type="radio" name="satisfaction" value="4"> Somewhat dissatisfied</label>
+                    <label><input type="radio" name="satisfaction" value="5"> Very dissatisfied</label>
+                </div>
+            </fieldset>
+            
+            
+
+            <fieldset>
+                <legend>Suicidal Thoughts</legend>
+                <label>Have you ever experienced suicidal thoughts?</label>
+                <div class="options">
+                    <label><input type="radio" name="suicidal-thoughts" value="1"> Never</label>
+                    <label><input type="radio" name="suicidal-thoughts" value="2"> Rarely</label>
+                    <label><input type="radio" name="suicidal-thoughts" value="3"> Occasionally</label>
+                    <label><input type="radio" name="suicidal-thoughts" value="4"> Often</label>
+                    <label><input type="radio" name="suicidal-thoughts" value="5"> Very Frequently</label>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+            <!-- Module 2: Emotion Detection -->
+            <div class="module">
+                <h2 class="module-title">Real-Time Emotion Detection</h2>
+                <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Live video feed">
+                <div id="emotion-result" style="margin-top: 15px; font-weight: bold; text-align: center;"></div>
+            </div>
+            
+           <!-- Module 3: Personal Therapy Session -->
+           <div class="module">
+            <h2 class="module-title">Personal Therapy Session</h2>
+            <p>
+                Hey there! 😊 Let's take a moment to talk. Think of this as a friendly chat. Just share how you're feeling in your own words.
+            </p>
+            
+            <label for="mental-health-input">How are you feeling today? What's on your mind? 🤔</label>
+            <textarea id="mental-health-input" name="user_thoughts" placeholder="Write your thoughts here..." required></textarea>
+
+            <p>Now, read out what you've written. Take a deep breath and speak naturally. 🎤</p>
+
+            <div class="dashboard-container1">
+                <h3>🎤 Voice Emotion Detector</h3>
+                <button type="button" class="mic-button" onclick="toggleRecording()">🎙️</button>
+                <div class="status" id="statusText">Click to record</div>
+
+                <input type="file" name="audio" id="audioInput" hidden>
+                <audio id="audioPlayer" controls style="display:none;"></audio>
+            </div>
+        </div>
+    </div>
+    
+    <div class="submit-container">
+        <button type="submit" class="submit-btn">Submit All Responses</button>
+    </div>
+</form>
+
+<script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let isRecording = false;
+
+    async function toggleRecording() {
+        const micButton = document.querySelector('.mic-button');
+        const statusText = document.getElementById('statusText');
+        
+        if (!isRecording) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = event => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audioPlayer = document.getElementById('audioPlayer');
+
+                    audioPlayer.src = audioUrl;
+                    audioPlayer.style.display = "block";
+
+                    const file = new File([audioBlob], "recorded.wav", { type: 'audio/wav' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    document.getElementById('audioInput').files = dataTransfer.files;
+
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                micButton.innerHTML = "⏹️";
+                micButton.style.backgroundColor = "#dc3545";
+                statusText.textContent = "Recording...";
+            } catch (error) {
+                console.error("Error accessing microphone:", error);
+                statusText.textContent = "Error: Microphone access denied";
+                alert("Please allow microphone access to use this feature.");
+            }
+        } else {
+            mediaRecorder.stop();
+            isRecording = false;
+            micButton.innerHTML = "🎙️";
+            micButton.style.backgroundColor = "#007BFF";
+            statusText.textContent = "Recording complete";
+        }
+    }
+</script>
+</body>
+</html>

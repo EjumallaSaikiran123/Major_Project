@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 100%;
+            text-align: left;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        .response-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            white-space: pre-wrap; /* Ensures line breaks appear properly */
+            word-wrap: break-word;
+            max-height: 60vh;
+            overflow-y: auto; /* Enables scrolling if the text is long */
+        }
+        .typing-indicator {
+            display: none;
+            font-size: 14px;
+            color: #888;
+            font-style: italic;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mental Health Report</h2>
+        <div class="response-box" id="responseBox"></div>
+        <p class="typing-indicator" id="typingIndicator">Generating response...</p>
+        <div class="button-container">
+            <form action="/convert_to_pdf" method="POST">
+                <button type="submit">Download as PDF</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const responseText = `{{ response | safe }}`;
+            const responseBox = document.getElementById("responseBox");
+            const typingIndicator = document.getElementById("typingIndicator");
+
+            responseBox.innerHTML = ""; 
+            typingIndicator.style.display = "block"; 
+
+            let i = 0;
+            function typeEffect() {
+                if (i < responseText.length) {
+                    responseBox.innerHTML += responseText.charAt(i);
+                    i++;
+                    setTimeout(typeEffect, 20); // Adjust typing speed
+                } else {
+                    typingIndicator.style.display = "none";
+                }
+            }
+
+            setTimeout(typeEffect, 500); // Small delay before typing starts
+        });
+    </script>
+</body>
+</html>
